@@ -5,7 +5,7 @@ const props = defineProps({
   active: { type: Boolean, default: true },
 });
 const progressDuration = computed(() => {
-  if (props.active) return props.duration / 1000;
+  if (props.active) return props.duration / 1000 + 0.25;
   return 0;
 });
 </script>
