@@ -1,0 +1,15 @@
+.slide-move,
+.slide-enter-active,
+.slide-leave-active {
+    transition: all 0.3s ease-in-out;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.slide-leave-active {
+    position: absolute;
+}
