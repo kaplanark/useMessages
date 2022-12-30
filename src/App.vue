@@ -17,6 +17,10 @@ const handleClick = (type) => {
     duration: duration.value,
   });
 };
+
+const handleShortcutClick = ()=>{
+  message.error('This is a message with type error');
+}
 </script>
 
 <template>
@@ -37,6 +41,7 @@ const handleClick = (type) => {
       <div class="form__group">
         <div class="btn-group">
           <button type="button" class="btn btn--error" @click="handleClick('error',)">Error</button>
+          <button type="button" class="btn btn--error" @click="handleShortcutClick">Error Shortcut</button>
           <button type="button"  class="btn btn--success" @click="handleClick('success')">Success</button>
           <button type="button" class="btn btn--warning" @click="handleClick('warning')">Warning</button>
           <button type="button" class="btn btn-default" @click="handleClick('default')">Default</button>

@@ -1,0 +1,15 @@
+.message-move,
+.message-enter-active,
+.message-leave-active {
+    transition: all 0.3s ease-in-out;
+}
+
+.message-enter-from,
+.message-leave-to {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.message-leave-active {
+    position: absolute;
+}

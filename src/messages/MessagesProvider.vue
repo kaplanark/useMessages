@@ -2,7 +2,7 @@
 import { computed } from "vue";
 import Message from "./Message.vue";
 import useMessages from "./";
-import './style.css';
+import './transition.css';
 const message = useMessages();
 const messages = computed(() => message.getMessages());
 </script>
@@ -10,7 +10,7 @@ const messages = computed(() => message.getMessages());
 <template>
     <div class="messages-provider">
         <div class="messages-provider__wrapper">
-          <TransitionGroup name="slide">
+          <TransitionGroup name="message">
             <Message v-for="message in messages" :key="message.id" :message="message" />
           </TransitionGroup>
         </div>
