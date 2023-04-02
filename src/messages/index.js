@@ -15,6 +15,20 @@ const actions = {
                 actions.removeMessage(id),clearTimeout(messageTimeOut);
             }, duration);
         }
+        if(type === 'confirm') {
+            return {
+                confirmText: 'Yes',
+                cancelText: 'No',
+                onConfirm() {
+                    actions.removeMessage(id);
+                    return true;
+                },
+                onCancel() {
+                    actions.removeMessage(id);
+                    return false;
+                }
+            }
+        }
     },
     error(content, autoClose = true, duration = 5000) {
         actions.addMessage({ type: 'error', content, autoClose, duration });
@@ -28,6 +42,9 @@ const actions = {
     info(content, autoClose = true, duration = 5000) {
         actions.addMessage({ type: 'info', content, autoClose, duration });
     },
+    confirm(content, autoClose = false) {
+        actions.addMessage({ type: 'confirm', content, autoClose });
+    }
 }
 
 const getters = {

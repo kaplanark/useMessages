@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from "vue";
+import {computed, ref} from "vue";
 import MessagesProvider from "./messages/MessagesProvider.vue";
 import useMessages from "./messages";
+import messages from "./messages";
 
 const message = useMessages();
 
@@ -15,6 +16,24 @@ const handleClick = (type) => {
     content: content.value || 'This is a message with type ' + type,
     autoClose : autoClose.value,
     duration: duration.value,
+  });
+};
+
+function yes(){
+  message.success('Thank you for your feedback :)');
+}
+
+function no(){
+  message.error('We will try to improve our work :(');
+}
+
+const handleConfirm = () => {
+  message.confirm({
+    text: 'Did you like the work?',
+    confirmText: 'Oh Yes!',
+    cancelText: 'No!',
+    onConfirm: () => yes(),
+    onCancel: () => no(),
   });
 };
 
@@ -46,6 +65,7 @@ const handleShortcutClick = ()=>{
           <button type="button" class="btn btn--warning" @click="handleClick('warning')">Warning</button>
           <button type="button" class="btn btn-default" @click="handleClick('default')">Default</button>
           <button type="button" class="btn btn--info" @click="handleClick('info')">Info</button>
+          <button type="button" class="btn btn--confirm" @click="handleConfirm">Confirm</button>
         </div>
       </div>
     </form>
@@ -90,6 +110,9 @@ const handleShortcutClick = ()=>{
   }
   &--default{
     background-color: #2c2c2c;
+  }
+  &--confirm{
+    background-color: #be62d9;
   }
 }
 

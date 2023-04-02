@@ -10,20 +10,34 @@ const handleRemove = (id) => message.removeMessage(id);
 </script>
 <template>
   <div class="message" :class="'message--' + props.message.type" @click="handleRemove(props.message.id)">
-    <Progress :active="props.message.autoClose" :duration="props.message.duration">
-      <template #icon>
-        <Icon :name="props.message.type" size="16"/>
-      </template>
-    </Progress>
-    <div class="message__content">{{ props.message.content}}</div>
-    <button type="button" class="message__close" v-if="!props.message.autoClose">
-      <Icon name="close" size="20" color="#777777"/>
-    </button>
+    <div class="message__body">
+      <Progress :active="props.message.autoClose" :duration="props.message.duration">
+        <template #icon>
+          <Icon :name="props.message.type" size="16"/>
+        </template>
+      </Progress>
+      <div class="message__content">
+        <template v-if="props.message.type === 'confirm'">
+          {{ props.message.content.text}}
+        </template>
+        <template v-else>
+          {{ props.message.content }}
+        </template>
+      </div>
+      <button type="button" class="message__close" v-if="!props.message.autoClose">
+        <Icon name="close" size="20" color="#777777"/>
+      </button>
+    </div>
+    <div class="message__actions" v-if="props.message.type === 'confirm'">
+      <button class="yes" @click="props.message.content.onConfirm()">{{props.message.content.confirmText}}</button>
+      <button class="no" @click="props.message.content.onCancel()"> {{props.message.content.cancelText}}</button>
+    </div>
   </div>
 </template>
 <style lang="scss">
 .message{
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 16px;
@@ -44,6 +58,34 @@ const handleRemove = (id) => message.removeMessage(id);
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  &__body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+  &__actions{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    .yes,.no{
+      border: none;
+      border-radius: 32px;
+      padding: 8px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      width: 100%;
+    }
+    .yes{
+      background-color: #36bb70;
+      color: #fff;
+    }
+    .no{
+      background-color: #ea584c;
+      color: #fff;
+    }
   }
 }
 </style>
